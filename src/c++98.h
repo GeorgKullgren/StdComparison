@@ -12,6 +12,8 @@ public:
    void increaseValues(int i);
    int operator[](int i);
    int sum();
+   void deleteValue(int i);
+   int sumWithThread();
 
 private:
    vector<int> myInts;

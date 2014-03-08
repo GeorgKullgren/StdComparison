@@ -44,3 +44,19 @@ int myC11class::sum()
    return total;
 }
 
+void myC11class::deleteValue(int i)
+{
+   auto func = [](){};
+   
+   for (auto it = begin(myInts); it != end(myInts); )
+   {
+      if (*it == i)
+      {
+         it = myInts.erase(it);
+      }
+      else
+      {
+         ++it;
+      }
+   }  
+}

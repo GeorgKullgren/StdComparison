@@ -31,4 +31,12 @@ TEST(C11Tests, forLoop)
    EXPECT_EQ(271, myClass.sum());
 }
 
+TEST(C11Tests, testTypes)
+{
+   myC11class myClass;
+   myClass.populateContainer();
+   
+   myClass.deleteValue(4);
+   EXPECT_EQ(8, myClass.containerSize());
+}
 

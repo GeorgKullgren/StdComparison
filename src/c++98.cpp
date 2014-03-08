@@ -1,6 +1,8 @@
 #include "c++98.h"
 #include <algorithm>
 #include <functional>
+#include <pthread.h>
+#include <iostream>
 
 
 struct addValue: binary_function<int, int, void>
@@ -50,5 +52,54 @@ int myC98class::sum()
    return total;
 }
 
+void myC98class::deleteValue(int i)
+{
+   for (vector<int>::iterator it = myInts.begin(); it != myInts.end(); )
+   {
+      if (*it == i)
+      {
+         it = myInts.erase(it);
+      }
+      else
+      {
+         ++it;
+      }
+   }  
+}
+
+void *sumOfContainer(void *ptr)
+{
+   vector<int>::iterator *itPair = (vector<int>::iterator *)ptr;
+   int total = 0;
+
+   for (vector<int>::iterator it = itPair[0]; it != itPair[1]; ++it)
+   {
+      total += *it;
+   }
+   pthread_exit((void*)total);   
+}
 
 
+int myC98class::sumWithThread()
+{
+   pthread_t thread1, thread2;
+   vector<int>::iterator itT1[2];
+   vector<int>::iterator itT2[2];
+   
+   itT1[0] = myInts.begin();
+   itT1[1] = itT1[0]+5;
+   itT2[0] = itT1[1];
+   itT2[1] = myInts.end();
+   
+   pthread_create(&thread1, NULL, &sumOfContainer, (void*)&itT1);
+   pthread_create(&thread2, NULL, &sumOfContainer, (void*)&itT2);
+
+   int ret1, ret2;
+   int retVal;
+   pthread_join(thread1, (void **)&retVal);
+   ret1 = retVal;
+   pthread_join(thread2, (void **)&retVal);
+   ret2 = retVal;
+   
+   return ret1 + ret2;
+}
