@@ -40,3 +40,18 @@ TEST(C11Tests, testTypes)
    EXPECT_EQ(8, myClass.containerSize());
 }
 
+TEST(C11Tests, sumWithThreadTest)
+{
+   myC11class myClass;
+   myClass.populateContainer();
+
+   EXPECT_EQ(271, myClass.sumWithThread());   
+}
+
+TEST(C11Tests, sumWithAsyncTest)
+{
+   myC11class myClass;
+   myClass.populateContainer();
+
+   EXPECT_EQ(271, myClass.sumWithAsync());   
+}

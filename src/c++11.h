@@ -13,8 +13,8 @@ public:
    int operator[](int i);
    int sum();
    void deleteValue(int i);
-   void *sumOfContainer(vector<int>::iterator it[]);
    int sumWithThread();
+   int sumWithAsync();
    
 private:
    vector<int> myInts;

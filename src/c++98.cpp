@@ -3,6 +3,7 @@
 #include <functional>
 #include <pthread.h>
 #include <iostream>
+#include <numeric>
 
 
 struct addValue: binary_function<int, int, void>
@@ -67,15 +68,12 @@ void myC98class::deleteValue(int i)
    }  
 }
 
-void *sumOfContainer(void *ptr)
+void *partialSum(void *ptr)
 {
    vector<int>::iterator *itPair = (vector<int>::iterator *)ptr;
    int *total = new int(0);
 
-   for (vector<int>::iterator it = itPair[0]; it != itPair[1]; ++it)
-   {
-      *total += *it;
-   }
+   *total = accumulate(itPair[0], itPair[1], 0);
    
    pthread_exit((void*)total);   
 }
@@ -92,8 +90,8 @@ int myC98class::sumWithThread()
    itT2[0] = itT1[1];
    itT2[1] = myInts.end();
    
-   pthread_create(&thread1, NULL, &sumOfContainer, (void*)&itT1);
-   pthread_create(&thread2, NULL, &sumOfContainer, (void*)&itT2);
+   pthread_create(&thread1, NULL, &partialSum, (void*)&itT1);
+   pthread_create(&thread2, NULL, &partialSum, (void*)&itT2);
 
    int *ret1, *ret2;
    pthread_join(thread1, (void **)&ret1);

@@ -1,5 +1,7 @@
 #include "c++11.h"
 #include <algorithm>
+#include <thread>
+#include <future>
 
 void myC11class::populateContainer()
 {
@@ -58,3 +60,37 @@ void myC11class::deleteValue(int i)
       }
    }  
 }
+
+int partialSum(vector<int>::iterator it1, vector<int>::iterator it2)
+{
+   return accumulate(it1, it2, 0);
+}
+
+int myC11class::sumWithThread()
+{
+   packaged_task<int(vector<int>::iterator, vector<int>::iterator)> task1(partialSum);
+   packaged_task<int(vector<int>::iterator, vector<int>::iterator)> task2(partialSum);
+
+   future<int> ret1 = task1.get_future();
+   future<int> ret2 = task2.get_future();
+   
+   thread th1(move(task1), begin(myInts), begin(myInts)+5);
+   thread th2(move(task2), begin(myInts)+5, end(myInts));
+
+   int sum = ret1.get();
+   sum += ret2.get();
+
+   th1.join();
+   th2.join();
+   
+   return sum;
+}
+
+int myC11class::sumWithAsync()
+{
+   auto ret1 = async(launch::async, partialSum, begin(myInts), begin(myInts)+5);
+   auto ret2 = async(launch::async, partialSum, begin(myInts)+5, end(myInts));
+
+   return ret1.get() + ret2.get();
+}
+
