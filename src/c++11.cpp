@@ -74,8 +74,8 @@ int myC11class::sumWithThread()
    std::future<int> ret1 = task1.get_future();
    std::future<int> ret2 = task2.get_future();
    
-   std::thread th1(move(task1), begin(myInts), begin(myInts)+5);
-   std::thread th2(move(task2), begin(myInts)+5, end(myInts));
+   std::thread th1(move(task1), std::begin(myInts), std::begin(myInts)+5);
+   std::thread th2(move(task2), std::begin(myInts)+5, std::end(myInts));
 
    int sum = ret1.get();
    sum += ret2.get();
@@ -88,8 +88,8 @@ int myC11class::sumWithThread()
 
 int myC11class::sumWithAsync()
 {
-   auto ret1 = std::async(std::launch::async, partialSum, begin(myInts), begin(myInts)+5);
-   auto ret2 = std::async(std::launch::async, partialSum, begin(myInts)+5, end(myInts));
+   auto ret1 = std::async(std::launch::async, partialSum, std::begin(myInts), std::begin(myInts)+5);
+   auto ret2 = std::async(std::launch::async, partialSum, std::begin(myInts)+5, std::end(myInts));
 
    return ret1.get() + ret2.get();
 }
