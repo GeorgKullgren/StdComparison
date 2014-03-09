@@ -70,12 +70,13 @@ void myC98class::deleteValue(int i)
 void *sumOfContainer(void *ptr)
 {
    vector<int>::iterator *itPair = (vector<int>::iterator *)ptr;
-   int total = 0;
+   int *total = new int(0);
 
    for (vector<int>::iterator it = itPair[0]; it != itPair[1]; ++it)
    {
-      total += *it;
+      *total += *it;
    }
+   
    pthread_exit((void*)total);   
 }
 
@@ -94,12 +95,12 @@ int myC98class::sumWithThread()
    pthread_create(&thread1, NULL, &sumOfContainer, (void*)&itT1);
    pthread_create(&thread2, NULL, &sumOfContainer, (void*)&itT2);
 
-   int ret1, ret2;
-   int retVal;
-   pthread_join(thread1, (void **)&retVal);
-   ret1 = retVal;
-   pthread_join(thread2, (void **)&retVal);
-   ret2 = retVal;
-   
-   return ret1 + ret2;
+   int *ret1, *ret2;
+   pthread_join(thread1, (void **)&ret1);
+   pthread_join(thread2, (void **)&ret2);
+
+   int sum  = *ret1 + *ret2;
+   delete ret1;
+   delete ret2;
+   return sum;
 }
