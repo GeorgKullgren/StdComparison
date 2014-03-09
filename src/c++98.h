@@ -2,7 +2,6 @@
 
 #include <vector>
 
-using namespace std;
 
 class myC98class
 {
@@ -16,7 +15,7 @@ public:
    int sumWithThread();
 
 private:
-   vector<int> myInts;
+   std::vector<int> myInts;
 };
 
 

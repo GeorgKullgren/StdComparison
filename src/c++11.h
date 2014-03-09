@@ -2,7 +2,6 @@
 
 #include <vector>
 
-using namespace std;
 
 class myC11class
 {
@@ -17,7 +16,7 @@ public:
    int sumWithAsync();
    
 private:
-   vector<int> myInts;
+   std::vector<int> myInts;
 };
 
 

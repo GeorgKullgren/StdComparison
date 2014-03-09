@@ -6,7 +6,7 @@
 #include <numeric>
 
 
-struct addValue: binary_function<int, int, void>
+struct addValue: std::binary_function<int, int, void>
 {
    void operator() (int &a, const int b) const { a += b;}
 };
@@ -34,7 +34,7 @@ int myC98class::containerSize()
 
 void myC98class::increaseValues(int i)
 {
-   for_each(myInts.begin(), myInts.end(), bind2nd<addValue>(addValue(), i));
+   std::for_each(myInts.begin(), myInts.end(), std::bind2nd<addValue>(addValue(), i));
 }
 
 int myC98class::operator[](int i)
@@ -46,7 +46,7 @@ int myC98class::sum()
 {
    int total = 0;
 
-   for (vector<int>::iterator it = myInts.begin(); it != myInts.end(); ++it)
+   for (std::vector<int>::iterator it = myInts.begin(); it != myInts.end(); ++it)
    {
       total += *it;
    }
@@ -55,7 +55,7 @@ int myC98class::sum()
 
 void myC98class::deleteValue(int i)
 {
-   for (vector<int>::iterator it = myInts.begin(); it != myInts.end(); )
+   for (std::vector<int>::iterator it = myInts.begin(); it != myInts.end(); )
    {
       if (*it == i)
       {
@@ -70,10 +70,10 @@ void myC98class::deleteValue(int i)
 
 void *partialSum(void *ptr)
 {
-   vector<int>::iterator *itPair = (vector<int>::iterator *)ptr;
+   std::vector<int>::iterator *itPair = (std::vector<int>::iterator *)ptr;
    int *total = new int(0);
 
-   *total = accumulate(itPair[0], itPair[1], 0);
+   *total = std::accumulate(itPair[0], itPair[1], 0);
    
    pthread_exit((void*)total);   
 }
@@ -82,8 +82,8 @@ void *partialSum(void *ptr)
 int myC98class::sumWithThread()
 {
    pthread_t thread1, thread2;
-   vector<int>::iterator itT1[2];
-   vector<int>::iterator itT2[2];
+   std::vector<int>::iterator itT1[2];
+   std::vector<int>::iterator itT2[2];
    
    itT1[0] = myInts.begin();
    itT1[1] = itT1[0]+5;

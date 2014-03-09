@@ -24,7 +24,7 @@ int myC11class::containerSize()
 
 void myC11class::increaseValues(int i)
 {
-   for_each(begin(myInts), end(myInts), [i](int &value)
+   for_each(std::begin(myInts), std::end(myInts), [i](int &value)
             {
                value += i;
             });
@@ -48,7 +48,7 @@ int myC11class::sum()
 
 void myC11class::deleteValue(int i)
 {
-   for (auto it = begin(myInts); it != end(myInts); )
+   for (auto it = std::begin(myInts); it != std::end(myInts); )
    {
       if (*it == i)
       {
@@ -61,21 +61,21 @@ void myC11class::deleteValue(int i)
    }  
 }
 
-int partialSum(vector<int>::iterator it1, vector<int>::iterator it2)
+int partialSum(std::vector<int>::iterator it1, std::vector<int>::iterator it2)
 {
-   return accumulate(it1, it2, 0);
+   return std::accumulate(it1, it2, 0);
 }
 
 int myC11class::sumWithThread()
 {
-   packaged_task<int(vector<int>::iterator, vector<int>::iterator)> task1(partialSum);
-   packaged_task<int(vector<int>::iterator, vector<int>::iterator)> task2(partialSum);
+   std::packaged_task<int(std::vector<int>::iterator, std::vector<int>::iterator)> task1(partialSum);
+   std::packaged_task<int(std::vector<int>::iterator, std::vector<int>::iterator)> task2(partialSum);
 
-   future<int> ret1 = task1.get_future();
-   future<int> ret2 = task2.get_future();
+   std::future<int> ret1 = task1.get_future();
+   std::future<int> ret2 = task2.get_future();
    
-   thread th1(move(task1), begin(myInts), begin(myInts)+5);
-   thread th2(move(task2), begin(myInts)+5, end(myInts));
+   std::thread th1(move(task1), begin(myInts), begin(myInts)+5);
+   std::thread th2(move(task2), begin(myInts)+5, end(myInts));
 
    int sum = ret1.get();
    sum += ret2.get();
@@ -88,8 +88,8 @@ int myC11class::sumWithThread()
 
 int myC11class::sumWithAsync()
 {
-   auto ret1 = async(launch::async, partialSum, begin(myInts), begin(myInts)+5);
-   auto ret2 = async(launch::async, partialSum, begin(myInts)+5, end(myInts));
+   auto ret1 = std::async(std::launch::async, partialSum, begin(myInts), begin(myInts)+5);
+   auto ret2 = std::async(std::launch::async, partialSum, begin(myInts)+5, end(myInts));
 
    return ret1.get() + ret2.get();
 }
