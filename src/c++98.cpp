@@ -11,9 +11,8 @@ struct addValue: std::binary_function<int, int, void>
    void operator() (int &a, const int b) const { a += b;}
 };
 
-
-
-void myC98class::populateContainer()
+myC98class::myC98class()
+   : myInts ()
 {
    myInts.push_back(7);
    myInts.push_back(3);
@@ -25,6 +24,16 @@ void myC98class::populateContainer()
    myInts.push_back(211);
    myInts.push_back(1);
    myInts.push_back(9);
+}
+
+myC98class::myC98class(std::vector<int> vector)
+   : myInts(vector)
+{
+}
+
+
+void myC98class::populateContainer()
+{
 }
 
 int myC98class::containerSize()
@@ -41,6 +50,14 @@ int myC98class::operator[](int i)
 {
    return myInts[i];
 }
+
+myC98class myC98class::operator+(myC98class rhs)
+{
+   std::vector<int> vec(myInts);
+   vec.insert(vec.end(), rhs.myInts.begin(), rhs.myInts.end());
+   return myC98class(vec);
+}
+
 
 int myC98class::sum()
 {

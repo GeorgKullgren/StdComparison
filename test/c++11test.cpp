@@ -8,15 +8,24 @@ TEST(C11Tests, populateContainer)
 {
    myC11class myClass;
 
-   myClass.populateContainer();
+//   myClass.populateContainer();
 
    EXPECT_EQ(10, myClass.containerSize());
 }
 
+TEST(C11Tests, templateReturnType)
+{
+   myC11class myClass1;
+   myC11class myClass2;
+   myC11class sum = addObjects<myC11class, myC11class>(myClass1, myClass2);
+   EXPECT_EQ(20, sum.containerSize());
+}
+
+
 TEST(C11Tests, increaseAllValuesBy1)
 {
    myC11class myClass;
-   myClass.populateContainer();
+//   myClass.populateContainer();
 
    myClass.increaseValues(2);
 
@@ -26,7 +35,7 @@ TEST(C11Tests, increaseAllValuesBy1)
 TEST(C11Tests, forLoop)
 {
    myC11class myClass;
-   myClass.populateContainer();
+//   myClass.populateContainer();
 
    EXPECT_EQ(271, myClass.sum());
 }
@@ -34,7 +43,7 @@ TEST(C11Tests, forLoop)
 TEST(C11Tests, testTypes)
 {
    myC11class myClass;
-   myClass.populateContainer();
+//   myClass.populateContainer();
    
    myClass.deleteValue(4);
    EXPECT_EQ(8, myClass.containerSize());
@@ -43,7 +52,7 @@ TEST(C11Tests, testTypes)
 TEST(C11Tests, sumWithThreadTest)
 {
    myC11class myClass;
-   myClass.populateContainer();
+//   myClass.populateContainer();
 
    EXPECT_EQ(271, myClass.sumWithThread());   
 }
@@ -51,7 +60,7 @@ TEST(C11Tests, sumWithThreadTest)
 TEST(C11Tests, sumWithAsyncTest)
 {
    myC11class myClass;
-   myClass.populateContainer();
+//   myClass.populateContainer();
 
    EXPECT_EQ(271, myClass.sumWithAsync());   
 }

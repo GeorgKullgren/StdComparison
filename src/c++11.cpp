@@ -3,19 +3,21 @@
 #include <thread>
 #include <future>
 
+myC11class::myC11class()
+   : myInts {7, 3, 2, 4, 8, 4, 22, 211, 1, 9}
+{
+}
+
+myC11class::myC11class(std::vector<int> vector)
+   : myInts(vector)
+{
+}
+
+
 void myC11class::populateContainer()
 {
-   myInts.push_back(7);
-   myInts.push_back(3);
-   myInts.push_back(2);
-   myInts.push_back(4);
-   myInts.push_back(8);
-   myInts.push_back(4);
-   myInts.push_back(22);
-   myInts.push_back(211);
-   myInts.push_back(1);
-   myInts.push_back(9);   
 }
+
 
 int myC11class::containerSize()
 {
@@ -33,6 +35,13 @@ void myC11class::increaseValues(int i)
 int myC11class::operator[](int i)
 {
    return myInts[i];
+}
+
+myC11class myC11class::operator+(myC11class rhs)
+{
+   std::vector<int> vec(myInts);
+   vec.insert(std::end(vec), std::begin(rhs.myInts), std::end(rhs.myInts));
+   return myC11class(vec);
 }
 
 
@@ -93,4 +102,6 @@ int myC11class::sumWithAsync()
 
    return ret1.get() + ret2.get();
 }
+
+
 

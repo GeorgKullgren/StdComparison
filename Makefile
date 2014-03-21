@@ -126,7 +126,7 @@ $(OBJ_DIR)/gtest_main.a : $(OBJ_DIR)/gtest-all.o $(OBJ_DIR)/gtest_main.o
 # Build rules for target and test executable
 
 $(OBJ_DIR)/%.o : $(TEST_DIR)/%.cpp $(GMOCK_HEADERS)
-	$(CXX) $(CPPFLAGS) -I$(USER_DIR)/src -c $< -o $@
+	$(CXX) $(CPPFLAGS) $(C11FLAG) -I$(USER_DIR)/src -c $< -o $@
 
 $(TESTS) : $(OBJ_DIR)/$(GMAIN)_main.a $(TEST_OBJ_FILES) $(OBJ_FILES)
 	$(CXX) $(LDFLAGS) $^ -o $@

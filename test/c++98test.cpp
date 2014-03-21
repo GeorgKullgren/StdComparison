@@ -13,6 +13,14 @@ TEST(C98Tests, populateContainer)
    EXPECT_EQ(10, myClass.containerSize());
 }
 
+TEST(C98Tests, templateReturnType)
+{
+   myC98class myClass1;
+   myC98class myClass2;
+   myC98class sum = addObjects<myC98class, myC98class>(myClass1, myClass2);
+   EXPECT_EQ(20, sum.containerSize());
+}
+
 TEST(C98Tests, increaseAllValuesBy1)
 {
    myC98class myClass;
