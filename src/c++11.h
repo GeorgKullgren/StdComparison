@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <iostream>
 
 
 class myC11class
@@ -29,3 +30,15 @@ auto addObjects(Lhs lhs, Rhs rhs) -> decltype(lhs+rhs)
    return lhs+rhs;
 }
 
+template<typename Type>
+void printTypes(Type value)
+{
+   std::cout << value << std::endl;
+}
+
+template<typename Type, typename... Tail>
+void printTypes(Type value, Tail... tail)
+{
+   std::cout << value << std::endl;
+   printTypes(tail...);
+}
