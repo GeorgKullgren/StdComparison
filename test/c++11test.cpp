@@ -73,3 +73,12 @@ TEST(C11Tests, variadicPrint)
    string s="test string";
    printTypes(x, f, s);
 }
+
+TEST(C11Tests, expressivePrint)
+{
+   int x=10;
+   float f=1.3f;
+   string s="test string";
+   separatePrint(x, f, s);
+}
+

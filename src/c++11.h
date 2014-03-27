@@ -42,3 +42,10 @@ void printTypes(Type value, Tail... tail)
    std::cout << value << std::endl;
    printTypes(tail...);
 }
+
+
+template<typename... Args>
+void separatePrint(Args... args)
+{
+   int dummy[] = { (printTypes(args),0)...};
+}
