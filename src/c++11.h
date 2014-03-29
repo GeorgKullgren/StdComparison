@@ -8,12 +8,15 @@ class myC11class
 {
 public:
    myC11class();
-   myC11class(std::vector<int> vec);
-   void populateContainer();
+   myC11class(const std::vector<int>& vector);
+   myC11class(const myC11class& other);
+   
    int containerSize();
    void increaseValues(int i);
    int operator[](int i);
-   myC11class operator+(myC11class rhs);
+   myC11class& operator=(const myC11class& rhs);
+   myC11class& operator=(myC11class&& rhs);   
+   myC11class operator+(const myC11class& rhs);
    int sum();
    void deleteValue(int i);
    int sumWithThread();
@@ -25,7 +28,7 @@ private:
 
 
 template<class Lhs, class Rhs>
-auto addObjects(Lhs lhs, Rhs rhs) -> decltype(lhs+rhs)
+auto addObjects(Lhs& lhs, Rhs& rhs) -> decltype(lhs+rhs)
 {
    return lhs+rhs;
 }
@@ -39,7 +42,7 @@ void printTypes(Type value)
 template<typename Type, typename... Tail>
 void printTypes(Type value, Tail... tail)
 {
-   std::cout << value << std::endl;
+   std::cout << value << " ";
    printTypes(tail...);
 }
 

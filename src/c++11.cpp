@@ -8,16 +8,17 @@ myC11class::myC11class()
 {
 }
 
-myC11class::myC11class(std::vector<int> vector)
+myC11class::myC11class(const std::vector<int>& vector)
    : myInts(vector)
 {
+   std::cout << "Vector copy constructor" << std::endl;
 }
 
-
-void myC11class::populateContainer()
+myC11class::myC11class(const myC11class& other)
+   : myInts(other.myInts)
 {
+   std::cout << "Copy constructor" << std::endl;
 }
-
 
 int myC11class::containerSize()
 {
@@ -37,7 +38,21 @@ int myC11class::operator[](int i)
    return myInts[i];
 }
 
-myC11class myC11class::operator+(myC11class rhs)
+myC11class& myC11class::operator=(const myC11class& rhs)
+{
+   std::cout << "Assignment constructor" << std::endl;
+   myInts = rhs.myInts;
+   return *this;
+}
+
+myC11class& myC11class::operator=(myC11class&& rhs)
+{
+   std::cout << "Assignement Move constructor" << std::endl;
+   myInts = rhs.myInts;
+   return *this;
+}
+
+myC11class myC11class::operator+(const myC11class& rhs)
 {
    std::vector<int> vec(myInts);
    vec.insert(std::end(vec), std::begin(rhs.myInts), std::end(rhs.myInts));
