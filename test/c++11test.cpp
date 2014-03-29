@@ -4,7 +4,7 @@
 using namespace std;
 
 
-TEST(C11Tests, populateContainer)
+TEST(C11Tests, initializeContainer)
 {
    myC11class myClass;
 

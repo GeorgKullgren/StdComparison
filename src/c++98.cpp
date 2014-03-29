@@ -26,15 +26,11 @@ myC98class::myC98class()
    myInts.push_back(9);
 }
 
-myC98class::myC98class(std::vector<int> vector)
+myC98class::myC98class(const std::vector<int> vector)
    : myInts(vector)
 {
 }
 
-
-void myC98class::populateContainer()
-{
-}
 
 int myC98class::containerSize()
 {
@@ -51,7 +47,7 @@ int myC98class::operator[](int i)
    return myInts[i];
 }
 
-myC98class myC98class::operator+(myC98class rhs)
+myC98class myC98class::operator+(const myC98class& rhs)
 {
    std::vector<int> vec(myInts);
    vec.insert(vec.end(), rhs.myInts.begin(), rhs.myInts.end());
