@@ -34,21 +34,23 @@ auto addObjects(Lhs& lhs, Rhs& rhs) -> decltype(lhs+rhs)
 }
 
 template<typename Type>
-void printTypes(Type value)
+int printTypes(Type value)
 {
    std::cout << value << std::endl;
+   return 0;
 }
 
 template<typename Type, typename... Tail>
-void printTypes(Type value, Tail... tail)
+int printTypes(Type value, Tail... tail)
 {
    std::cout << value << " ";
    printTypes(tail...);
+   return 0;
 }
 
 
 template<typename... Args>
 void separatePrint(Args... args)
 {
-   int dummy[] = { (printTypes(args),0)...};
+   int dummy[] = { printTypes(args)...};
 }
