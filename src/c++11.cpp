@@ -1,5 +1,6 @@
 #include "c++11.h"
 #include <algorithm>
+#include <numeric>
 #include <thread>
 #include <future>
 
