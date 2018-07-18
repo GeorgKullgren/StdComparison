@@ -33,20 +33,12 @@ OBJ_DIR = $(USER_DIR)/obj
 # Points to the root of Google Test, relative to where this file is.
 # Remember to tweak this if you move this file, or if you want to use
 # a copy of Google Test at a different location.
-GOOGLE_ROOT = /usr/local/lib/gmock
-GTEST_DIR = $(GOOGLE_ROOT)/gtest
+GOOGLE_ROOT = /usr/src/googletest
 
 ######################################################################
-# Points to the root of Google Mock, relative to where this file is.
-# Remember to tweak this if you move this file.
-GMOCK_DIR = $(GOOGLE_ROOT)
-
-######################################################################
-# Flags passed to the preprocessor.
-# Set Google Test and Google Mock's header directories as system
-# directories, such that the compiler doesn't generate warnings in
-# these headers.
-CPPFLAGS += -isystem $(GTEST_DIR)/include -isystem $(GMOCK_DIR)/include
+# Points to the mock and test directories in Google Test.
+GTEST_DIR = $(GOOGLE_ROOT)/googletest
+GMOCK_DIR = $(GOOGLE_ROOT)/googlemock
 
 ######################################################################
 # Creating lists of src files and test files
